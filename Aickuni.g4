@@ -1,16 +1,16 @@
 grammar Aickuni;
 
 programa: (comando DELIM);
-comando: declaracao* (entradasaida | atribuicao) DELIM | (exprcond | exprrepe | funcao);
-declaracao: TIPO WS ID;
-atribuicao: ATR WS (NUM | TEXTO | exprarit | exprlogi | exprcomp) A ID;
-entradasaida: ES WS (ID | NUM | TEXTO | exprarit | exprlogi | exprcomp);
-exprarit: (ID | NUM) WS? OPARIT WS? (ID | NUM);
-exprlogi: (ID | BOOL) WS? OPBOOL WS? (ID | BOOL);
-exprcomp: (ID | NUM) WS? OPREL WS? (ID | NUM);
-exprcond: SE WS (exprlogi | exprcomp) WS ENTAO WS comando (WS SENAO (exprcond | (comando DELIM)*))*;
-exprrepe: ENQUANTO WS (exprcomp | exprlogi) WS ABLOCO (comando DELIM)* FBLOCO;
-funcao: FUNCR WS TIPO WS WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* RETORNA (ID | NUM | BOOL | TEXTO | exprarit | exprlogi | exprcomp) FBLOCO | FUNCSR WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* FBLOCO;
+comando: ((declaracao WS*)* ((entradasaida | atribuicao) WS*)* DELIM WS* | (exprcond | exprrepe | funcao) WS*)+;
+declaracao: TIPO WS* ID;
+atribuicao: ATR WS* (NUM | TEXTO | exprarit | exprlogi | exprcomp) A ID WS*;
+entradasaida: ES WS* (ID | NUM | TEXTO | exprarit | exprlogi | exprcomp);
+exprarit: (ID | NUM) WS? OPARIT WS? (ID | NUM) WS*;
+exprlogi: (ID | BOOL) WS? OPBOOL WS? (ID | BOOL) WS*;
+exprcomp: (ID | NUM) WS? OPREL WS? (ID | NUM) WS*;
+exprcond: SE WS* (exprlogi | exprcomp) WS* ENTAO WS* comando (WS* SENAO (exprcond | (comando DELIM)*))* WS*;
+exprrepe: ENQUANTO WS* (exprcomp | exprlogi) WS* ABLOCO (comando DELIM)* FBLOCO WS*;
+funcao: FUNCR WS* TIPO WS* TEXTO WS* APAREN WS* (TEXTO SEP)* WS* FPAREN WS* ABLOCO comando* RETORNA (ID | NUM | BOOL | TEXTO | exprarit | exprlogi | exprcomp) FBLOCO WS* | FUNCSR WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* FBLOCO WS*;
 
 
 

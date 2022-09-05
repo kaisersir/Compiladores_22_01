@@ -1,0 +1,22 @@
+INT var1
+REAL var2
+BOOL var4
+
+LER var1
+LER var2
+
+FUNCAORETORNO BOOL funcaoExemplo ( INT var1 , INT var2 ) {
+    SE( var1 MAIORIGUAL var2 ) ENTAO {
+        RETORNA VERDADEIRO
+    } SENAO {
+        RETORNA FALSO
+    }
+} ;
+
+var4 ATRIBUI funcaoExemplo ( var1, var2)
+
+SE ( var4 IGUAL VERDADEIRO ) ENTAO {
+    ESCREVER "var1 e maior ou igual a var2"
+} SENAO {
+    ESCREVER "var1 e menor do que var2"
+}
