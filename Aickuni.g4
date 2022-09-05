@@ -1,6 +1,6 @@
 grammar Aickuni;
 
-programa: (comando DELIM)+;
+programa: (comando DELIM);
 comando: declaracao* (entradasaida | atribuicao) DELIM | (exprcond | exprrepe | funcao);
 declaracao: TIPO WS ID;
 atribuicao: ATR WS (NUM | TEXTO | exprarit | exprlogi | exprcomp) A ID;
@@ -10,7 +10,7 @@ exprlogi: (ID | BOOL) WS? OPBOOL WS? (ID | BOOL);
 exprcomp: (ID | NUM) WS? OPREL WS? (ID | NUM);
 exprcond: SE WS (exprlogi | exprcomp) WS ENTAO WS comando (WS SENAO (exprcond | (comando DELIM)*))*;
 exprrepe: ENQUANTO WS (exprcomp | exprlogi) WS ABLOCO (comando DELIM)* FBLOCO;
-funcao: FUNC WS TIPO WS WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* RETORNA (ID | NUM | BOOL | TEXTO | exprarit | exprlogi | exprcomp) FBLOCO | FUNC WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* FBLOCO;
+funcao: FUNCR WS TIPO WS WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* RETORNA (ID | NUM | BOOL | TEXTO | exprarit | exprlogi | exprcomp) FBLOCO | FUNCSR WS TEXTO APAREN (TEXTO SEP)* FPAREN WS ABLOCO comando* FBLOCO;
 
 
 
@@ -28,7 +28,8 @@ ENQUANTO: 'ENQUANTO';
 SE: 'SE';
 ENTAO: 'ENTAO';
 SENAO: 'SENAO';
-FUNC: 'FUNCAORETORNO'|'FUNCAOSEMRETORNO';
+FUNCR: 'FUNCAORETORNO';
+FUNSR: 'FUNCAOSEMRETORNO';
 ES: 'LER'|'ESCREVER';
 ABLOCO: '{';
 FBLOCO: '}';
