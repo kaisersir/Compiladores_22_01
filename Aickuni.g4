@@ -13,7 +13,7 @@ exprlogi: (ID | BOOL) WS? OPBOOL WS? (ID | BOOL) WS* #ExprLogi;
 exprcomp: (ID | NUM) WS? OPREL WS? (ID | NUM) WS* #ExprComp;
 exprcond: SE WS* (exprlogi | exprcomp) WS* ENTAO WS* comando (WS* SENAO (exprcond | (comando DELIM)*))* WS* #ExprCond;
 exprrepe: ENQUANTO WS* (exprcomp | exprlogi) WS* ABLOCO (comando DELIM)* FBLOCO WS* #ExprRepe;
-funcao: FUNCR WS* TIPO WS* TEXTO WS* APAREN WS* ((TIPO TEXTO SEP)* TIPO TEXTO) WS* FPAREN WS* ABLOCO comando* RETORNA (ID | NUM | BOOL | TEXTO | exprarit | exprlogi | exprcomp) FBLOCO WS* | FUNSR WS TEXTO APAREN ((TIPO TEXTO SEP)* TIPO TEXTO) FPAREN WS ABLOCO comando* FBLOCO WS* #Funcao;
+funcao: FUNCR WS* TIPO WS* TEXTO WS* APAREN WS* ((TIPO TEXTO SEP)* (TIPO TEXTO)?) WS* FPAREN WS* ABLOCO comando* RETORNA (ID | NUM | BOOL | TEXTO | exprarit | exprlogi | exprcomp) FBLOCO WS* | FUNSR WS TEXTO APAREN ((TIPO TEXTO SEP)* (TIPO TEXTO)?) FPAREN WS ABLOCO comando* FBLOCO WS* #Funcao;
 
 
 

@@ -10,21 +10,37 @@ public class CompiladorAlguma {
 
     public static void main (String[] args){
         String filename = "/home/ivan/Documents/UFLA/2022_1/Compiladores/Projeto compiladores/parte 2/codigo.txt";
-    try{
-        CharStream input = CharStremas.fromFileName(filename);
-        AickuniLexer lexer = new AickuniLexer(input);
-        CommonTokenStream tokens =  new CommonTokenStram(lexer);
-        AickuniParser parser = new AickuniParser(tokens);
+        AickuniParser parser = getParser(fileName);
 
-        ParseTree ast = parser.inicio();
-        system.out.println(ast.toStringTree());
+        //obter arvore
+        ParseTree ast = parser.programa();
 
+        // System.out.println(ast.toStringTree());
 
-    } catch (IOException e){
-        e.printStackTrace();
+        //Inicia o MyListener, nossa implementação do baseListener
+        MyListener listener = new MyListener();
+
+        ParseTreeWalker walker = new ParseTreeWalker();
+
+        //percorre a ast com a nossa implementação do listener
+        walker.walk(listener,ast);
+
+        //imprime a tabela de símbolos
+        System.out.println(listener.getTabelaSimbolos().toString());
     }
 
+    private static AickuniParser getParser(String fileName){
+        AickuniParser parser = null;
+        try{
+            CharStream input = CharStreams.fromFileName(fileName);
+            GramaticaLexer lexer = new AickuniLexer(input);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            parser = new AickuniParser(tokens);
 
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        return parser;
     }
 
 }
