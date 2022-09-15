@@ -1,10 +1,13 @@
 grammar Aickuni;
 
 programa: (comando DELIM) #Programa;
-comando: ((declaracao WS*)* ((entradasaida | atribuicao) WS*)* DELIM WS* | (exprcond | exprrepe | funcao) WS*)+ #Comando;
+comando: ((declaracao WS*)* ((ler | escrever | atribuicao) WS*)* DELIM WS* | (exprcond | exprrepe | funcao) WS*)+ #Comando;
 declaracao: TIPO WS* ID #Declaracao;
 atribuicao: ATR WS* (NUM | TEXTO | exprarit | exprlogi | exprcomp) A ID WS* #Atribuicao;
-entradasaida: ES WS* (ID | NUM | TEXTO | exprarit | exprlogi | exprcomp) #EntradaSaida;
+
+ler: LER WS* (ID | NUM | TEXTO) #Ler;
+escrever: ESCREVER WS* (ID | NUM | TEXTO | exprarit | exprlogi | exprcomp) #Escrever;
+
 exprarit: (ID | NUM) WS? OPARIT WS? (ID | NUM) WS* #ExprArit;
 exprlogi: (ID | BOOL) WS? OPBOOL WS? (ID | BOOL) WS* #ExprLogi;
 exprcomp: (ID | NUM) WS? OPREL WS? (ID | NUM) WS* #ExprComp;
@@ -30,7 +33,8 @@ ENTAO: 'ENTAO';
 SENAO: 'SENAO';
 FUNCR: 'FUNCAORETORNO';
 FUNSR: 'FUNCAOSEMRETORNO';
-ES: 'LER'|'ESCREVER';
+LER: 'LER';
+ESCREVER: 'ESCREVER';
 ABLOCO: '{';
 FBLOCO: '}';
 TIPO: 'REAL'|'INT'|'TEXTO'|'BOOL';
